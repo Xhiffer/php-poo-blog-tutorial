@@ -18,6 +18,7 @@ class App
         // élement est présent dans un tableaux.
 
         $page = 'list';
+        
 
         // Ici on test si on a envoyé la query "page"
         if (isset($_GET['page'])) {
@@ -26,7 +27,16 @@ class App
             $page = $_GET['page'];
         }
 
+        $pagePath = __DIR__ . '/../pages/' . $page . '.php';
         // ici afficher la page avec "require" !
-        require __DIR__ . '/../pages/' . $page . '.php';
+        if(file_exists($pagePath))
+        {
+            require __DIR__ . '/../pages/' . $page . '.php';
+        }
+        else
+        {
+            require __DIR__ . '/../pages/notFound.php';
+        }
+        
     }
 }

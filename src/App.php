@@ -1,5 +1,8 @@
 <?php
-
+spl_autoload_register(function ($className) {
+    $path = str_replace('\\', '/', $className);
+    require_once __DIR__ . '/../src/' . $path . '.php';
+});
 /**
  * La class App est le point d'entré de notre application. C'est
  * l'objet principal !
@@ -18,6 +21,8 @@ class App
         // élement est présent dans un tableaux.
 
         $page = 'list';
+        $bdd = new \PDO('mysql:dbname=php-poo-blog;host=localhost', 'root');
+        $pdo = new Table\Article($bdd);
         
 
         // Ici on test si on a envoyé la query "page"

@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/partials/header.php';
-$row = Table\Article::insertOne($_GET['id']);
+$row = $pdo->insertOne($_GET['id']);
 ?>
 <h1><?php echo htmlspecialchars($row['title'])?></h1>
 <p>

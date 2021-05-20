@@ -2,7 +2,7 @@
 require __DIR__ . '/../pages/partials/header.php';
 
 
-$allrows = Table\Article::fetchAll();
+$allrows = $pdo->fetchAll();
 ?>
 <h1>Bienvenue</h1>
 <?php

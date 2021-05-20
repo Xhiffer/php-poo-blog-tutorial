@@ -1,18 +1,8 @@
 <?php
 require __DIR__ . '/../pages/partials/header.php';
 
-try {
-    $pdo = new PDO('mysql:dbname=php-poo-blog;host=localhost', 'root');
 
-    $sql = 'SELECT *
-               FROM articles';
-
-    $q = $pdo->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    die("Could not connect to the database $dbname :" . $e->getMessage());
-}
-$allrows=$q->fetchAll();
+$allrows = Table\Article::fetchAll();
 ?>
 <h1>Bienvenue</h1>
 <?php

@@ -1,20 +1,7 @@
 <?php
 require __DIR__ . '/partials/header.php';
-try {
-    $pdo = new PDO('mysql:dbname=php-poo-blog;host=localhost', 'root');
-
-    $sql = 'SELECT *
-               FROM articles
-               WHERE title IN ("'.$_GET['id'].'")';
-
-    $q = $pdo->query($sql);
-    $q->setFetchMode(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    die("Could not connect to the database $dbname :" . $e->getMessage());
-}
-$row=$q->fetch();
+$row = Table\Article::insertOne($_GET['id']);
 ?>
-
 <h1><?php echo htmlspecialchars($row['title'])?></h1>
 <p>
 <?php echo htmlspecialchars($row['description'])?>

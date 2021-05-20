@@ -1,5 +1,28 @@
 <?php
-require __DIR__ . '/partials/themeStart.php';
+require __DIR__ . '/partials/header.php';
+
+if (!empty($_POST)) {
+    // ETAPE 1 : Se connécter à la base de données
+    $pdo = new PDO('mysql:dbname=php-poo-blog;host=localhost', 'root');
+    var_dump('Nous sommes connécté à la base de données');
+
+    // ETAPE 2 : Envoyer une requête de création d'article
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $content = $_POST['content'];
+
+    $stmt = $pdo->prepare("INSERT INTO articles (title, description, content) VALUES (?,?,?)");
+    try {
+        $pdo->beginTransaction();
+        $stmt->execute([$title,$description,$content]);
+        $pdo->commit();
+    } catch (Exception $e) {
+        $pdo->rollback();
+        throw $e;
+        var_dump($e);
+    }
+}
+
 ?>
 
 <h1>Page de création d'un article</h1>
@@ -21,5 +44,5 @@ require __DIR__ . '/partials/themeStart.php';
 </form>
 
 <?
-require __DIR__ . '/partials/themeEnd.php';
+require __DIR__ . '/partials/footer.php';
 ?>
